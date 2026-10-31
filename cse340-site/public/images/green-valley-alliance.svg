@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="t"><title id="t">Green Valley Alliance logo</title>
+<rect width="320" height="200" fill="#e3f1e8"/>
+<path d="M0 160 Q80 110 160 150 T320 140 V200 H0Z" fill="#2f7d55"/>
+<path d="M0 180 Q100 140 200 170 T320 165 V200 H0Z" fill="#1f5c3d"/>
+<path d="M160 40 C120 50 110 95 160 120 C210 95 200 50 160 40Z" fill="#46a36f"/>
+<path d="M160 50 V118" stroke="#e3f1e8" stroke-width="4" fill="none"/>
+</svg>
