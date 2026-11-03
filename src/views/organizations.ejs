@@ -1,0 +1,23 @@
+<%- include("partials/header", { title }) %>
+  <main id="main-content">
+    <section class="page-heading">
+      <p class="eyebrow">Our community partners</p>
+      <h1>Organizations</h1>
+      <p>Meet local groups creating positive change through service.</p>
+    </section>
+    <section class="section">
+      <div class="card-grid organization-grid">
+        <% organizations.forEach((organization) => { %>
+          <article class="organization-card">
+            <img src="<%= organization.imagePath %>" alt="<%= organization.name %>">
+            <div>
+              <p class="card-tag"><%= organization.category %></p>
+              <h2><%= organization.name %></h2>
+              <p><%= organization.description %></p>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+<%- include("partials/footer") %>

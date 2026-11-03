@@ -1,0 +1,22 @@
+<%- include("partials/header", { title }) %>
+  <main id="main-content">
+    <section class="page-heading">
+      <p class="eyebrow">Upcoming opportunities</p>
+      <h1>Service Projects</h1>
+      <p>Choose a project and make a direct impact in your community.</p>
+    </section>
+    <section class="section">
+      <div class="card-grid three">
+        <% projects.forEach((project) => { %>
+          <article class="project-card">
+            <p class="card-tag"><%= project.schedule %></p>
+            <h2><%= project.name %></h2>
+            <p><%= project.description %></p>
+            <p>Organization: <%= project.organizationName %></p>
+            <a href="/categories">View categories</a>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+<%- include("partials/footer") %>
