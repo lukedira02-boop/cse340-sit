@@ -1,11 +1,19 @@
-# Service Connect (CSE 340 W01)
+# Service Connect (CSE 340)
 
 Node.js + Express + EJS site.
 
 ## Run locally
-    npm install
-    cp .env.example .env
-    npm start
+```powershell
+npm install
+Copy-Item .env.example .env
+```
+
+Add your PostgreSQL `DATABASE_URL` to `.env`, then run:
+
+```powershell
+npm run db:setup
+npm start
+```
 
 Open http://127.0.0.1:3000
 

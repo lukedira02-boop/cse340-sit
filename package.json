@@ -1,7 +1,7 @@
 {
   "name": "cse340-service-site",
   "version": "1.0.0",
-  "description": "CSE 340 W01 - Service project site built with Node.js, Express, and EJS",
+  "description": "CSE 340 Service Connect site built with Node.js, Express, PostgreSQL, and EJS",
   "type": "module",
   "main": "server.js",
   "scripts": {
