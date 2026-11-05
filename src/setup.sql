@@ -78,3 +78,29 @@ INSERT INTO project_categories (project_id, category_id) VALUES
     (13, 4),
     (14, 1), (14, 3),
     (15, 4), (15, 3);
+
+DO $$
+BEGIN
+    IF (SELECT COUNT(*) FROM project) < 15 THEN
+        RAISE EXCEPTION 'At least 15 projects are required';
+    END IF;
+
+    IF EXISTS (
+        SELECT organization_id
+        FROM project
+        GROUP BY organization_id
+        HAVING COUNT(*) < 5
+    ) THEN
+        RAISE EXCEPTION 'Each organization must have at least 5 projects';
+    END IF;
+
+    IF EXISTS (
+        SELECT p.project_id
+        FROM project p
+        LEFT JOIN project_categories pc ON pc.project_id = p.project_id
+        WHERE pc.project_id IS NULL
+    ) THEN
+        RAISE EXCEPTION 'Every project must be assigned to at least one category';
+    END IF;
+END
+$$;
