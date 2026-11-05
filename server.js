@@ -2,6 +2,9 @@ import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getOrganizations } from './src/models/organizations.js';
+import { getProjects } from './src/models/projects.js';
+import { getCategories } from './src/models/categories.js';
 
 // ESM does not provide __dirname, so build it from import.meta.url
 const __filename = fileURLToPath(import.meta.url);
@@ -23,19 +26,39 @@ app.get('/', async (req, res) => {
     res.render('home', { title });
 });
 
-app.get('/organizations', async (req, res) => {
+app.get('/organizations', async (req, res, next) => {
     const title = 'Partner Organizations';
-    res.render('organizations', { title });
+    try {
+        const organizations = await getOrganizations();
+        res.render('organizations', { title, organizations });
+    } catch (error) {
+        next(error);
+    }
 });
 
-app.get('/projects', async (req, res) => {
+app.get('/projects', async (req, res, next) => {
     const title = 'Service Projects';
-    res.render('projects', { title });
+    try {
+        const projects = await getProjects();
+        res.render('projects', { title, projects });
+    } catch (error) {
+        next(error);
+    }
 });
 
-app.get('/categories', async (req, res) => {
+app.get('/categories', async (req, res, next) => {
     const title = 'Service Project Categories';
-    res.render('categories', { title });
+    try {
+        const categories = await getCategories();
+        res.render('categories', { title, categories });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.use((error, req, res, next) => {
+    console.error('Database request failed:', error);
+    res.status(500).send('Database error: unable to load the requested data.');
 });
 
 app.listen(port, () => {
