@@ -7,12 +7,13 @@
     <ul class="project-list">
         <% projects.forEach((project) => { %>
             <li class="panel">
-                <h2><%= project.name %></h2>
+                <% const schedule = project.schedule instanceof Date ? project.schedule.toISOString().slice(0, 10) : String(project.schedule).slice(0, 10); %>
+                <% const displayDate = new Date(`${schedule}T00:00:00`).toLocaleDateString('en-US'); %>
+                <h2><%= displayDate %>: <%= project.name %> (<%= project.organization %>)</h2>
                 <p><%= project.description %></p>
                 <p><strong>Organization:</strong> <%= project.organization %></p>
                 <p><strong>Location:</strong> <%= project.location %></p>
-                <% const schedule = project.schedule instanceof Date ? project.schedule.toISOString().slice(0, 10) : String(project.schedule).slice(0, 10); %>
-                <p><strong>Schedule:</strong> <time datetime="<%= schedule %>"><%= new Date(`${schedule}T00:00:00`).toLocaleDateString('en-US') %></time></p>
+                <p><strong>Schedule:</strong> <time datetime="<%= schedule %>"><%= displayDate %></time></p>
                 <p><strong>Categories:</strong> <%= project.categories.join(', ') %></p>
             </li>
         <% }) %>

@@ -30,3 +30,5 @@ static fallback data when a database query fails.
 - Build command: `npm install`
 - Start command: `npm start`
 - Set `NODE_ENV=production` in Render's environment settings (do not commit `.env`).
+- Link the Render PostgreSQL database through `DATABASE_URL`.
+- Run `npm run db:setup` once before the first deploy to create and seed the tables.
