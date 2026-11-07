@@ -2,7 +2,7 @@ services:
   - type: web
     name: cse340-service-network
     runtime: node
-    buildCommand: npm install
+    buildCommand: npm install && npm run db:setup
     startCommand: npm start
     envVars:
       - key: NODE_ENV
