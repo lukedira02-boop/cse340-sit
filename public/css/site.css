@@ -67,6 +67,7 @@ a { color: inherit; }
 .nav-links { display: flex; gap: .3rem; margin: 0; padding: 0; list-style: none; }
 .nav-links a { display: block; padding: .7rem .85rem; border-radius: 999px; font-size: .92rem; font-weight: 700; text-decoration: none; }
 .nav-links a:hover, .nav-links a:focus-visible { background: #edf4ef; color: var(--green-dark); }
+.nav-links a[aria-current="page"] { background: var(--green); color: var(--white); }
 
 .hero {
   width: min(1120px, calc(100% - 2rem));
@@ -129,6 +130,7 @@ h1, h2, h3 { line-height: 1.12; }
 .organization-card p:last-child { margin-bottom: 0; color: var(--muted); }
 .card-tag { margin: 0; color: var(--green-dark) !important; font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .project-card { display: flex; flex-direction: column; }
+.project-card-image { width: calc(100% + 3.4rem); max-width: none; height: 180px; margin: -1.7rem -1.7rem 1.25rem; border-radius: 18px 18px 0 0; object-fit: cover; }
 .project-card a { margin-top: auto; color: var(--green-dark); font-weight: 800; }
 
 .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }

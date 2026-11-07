@@ -20,10 +20,10 @@
         <span>Community Connections</span>
       </a>
       <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/organizations">Organizations</a></li>
-        <li><a href="/projects">Projects</a></li>
-        <li><a href="/categories">Categories</a></li>
+        <li><a href="/" <% if (title === "Home") { %>aria-current="page"<% } %>>Home</a></li>
+        <li><a href="/organizations" <% if (title === "Organizations") { %>aria-current="page"<% } %>>Organizations</a></li>
+        <li><a href="/projects" <% if (title === "Service Projects") { %>aria-current="page"<% } %>>Projects</a></li>
+        <li><a href="/categories" <% if (title === "Service Project Categories") { %>aria-current="page"<% } %>>Categories</a></li>
       </ul>
     </nav>
   </header>

@@ -8,7 +8,16 @@
     <section class="section">
       <div class="category-grid">
         <% categories.forEach((category, index) => { %>
-          <article class="category-card">
+          <%
+            const categoryClasses = {
+              Environmental: "environmental",
+              Educational: "educational",
+              "Community Service": "community",
+              "Health and Wellness": "health"
+            };
+            const categoryClass = categoryClasses[category.name] || "";
+          %>
+          <article class="category-card <%= categoryClass %>">
             <span><%= String(index + 1).padStart(2, "0") %></span>
             <h2><%= category.name %></h2>
           </article>
