@@ -1,32 +1,23 @@
-<%- include("partials/header", { title }) %>
-  <main id="main-content">
-    <section class="page-heading">
-      <p class="eyebrow">Upcoming opportunities</p>
-      <h1>Service Projects</h1>
-      <p>Choose a project and make a direct impact in your community.</p>
-    </section>
-    <section class="section">
-      <div class="card-grid three">
+<%- include('partials/header') %>
+
+<main id="main-content" class="container">
+    <h1><%= title %></h1>
+    <p class="lead">Upcoming volunteer opportunities. More details will be added soon.</p>
+
+    <ul class="project-list">
         <% projects.forEach((project) => { %>
-          <article class="project-card">
-            <% if (project.imagePath) { %>
-              <img class="project-card-image" src="<%= project.imagePath %>" alt="">
-            <% } %>
-            <p class="card-tag">
-              <% if (project.schedule) { %>
-                <%= new Date(project.schedule).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }) %>
-              <% } else { %>
-                Schedule to be announced
-              <% } %>
-            </p>
-            <h2><%= project.name %></h2>
-            <p><%= project.description %></p>
-            <p>Location: <%= project.location || "Location to be announced" %></p>
-            <p>Organization: <%= project.organizationName %></p>
-            <a href="/categories">View categories</a>
-          </article>
+            <li class="panel">
+                <% const schedule = project.schedule instanceof Date ? project.schedule.toISOString().slice(0, 10) : String(project.schedule).slice(0, 10); %>
+                <% const displayDate = new Date(`${schedule}T00:00:00`).toLocaleDateString('en-US'); %>
+                <h2><%= displayDate %>: <%= project.name %> (<%= project.organization %>)</h2>
+                <p><%= project.description %></p>
+                <p><strong>Organization:</strong> <%= project.organization %></p>
+                <p><strong>Location:</strong> <%= project.location %></p>
+                <p><strong>Schedule:</strong> <time datetime="<%= schedule %>"><%= displayDate %></time></p>
+                <p><strong>Categories:</strong> <%= project.categories.join(', ') %></p>
+            </li>
         <% }) %>
-      </div>
-    </section>
-  </main>
-<%- include("partials/footer") %>
+    </ul>
+</main>
+
+<%- include('partials/footer') %>

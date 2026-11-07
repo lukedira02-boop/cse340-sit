@@ -1,28 +1,14 @@
-<%- include("partials/header", { title }) %>
-  <main id="main-content">
-    <section class="page-heading">
-      <p class="eyebrow">Find your cause</p>
-      <h1>Service Project Categories</h1>
-      <p>Explore the different areas where your service can make a difference.</p>
-    </section>
-    <section class="section">
-      <div class="category-grid">
-        <% categories.forEach((category, index) => { %>
-          <%
-            const categoryClasses = {
-              Environmental: "environmental",
-              Educational: "educational",
-              "Community Service": "community",
-              "Health and Wellness": "health"
-            };
-            const categoryClass = categoryClasses[category.name] || "";
-          %>
-          <article class="category-card <%= categoryClass %>">
-            <span><%= String(index + 1).padStart(2, "0") %></span>
-            <h2><%= category.name %></h2>
-          </article>
+<%- include('partials/header') %>
+
+<main id="main-content" class="container">
+    <h1><%= title %></h1>
+    <p class="lead">Every service project belongs to one of these categories.</p>
+
+    <ul class="category-list">
+        <% categories.forEach((category) => { %>
+            <li><%= category.name %></li>
         <% }) %>
-      </div>
-    </section>
-  </main>
-<%- include("partials/footer") %>
+    </ul>
+</main>
+
+<%- include('partials/footer') %>

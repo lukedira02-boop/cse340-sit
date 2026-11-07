@@ -1,31 +1,20 @@
-<%- include("partials/header", { title }) %>
-  <main id="main-content">
+<%- include('partials/header') %>
+
+<main id="main-content" class="container">
     <section class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">Volunteer. Connect. Serve.</p>
-        <h1>Make a meaningful difference close to home.</h1>
-        <p>Discover local organizations and service projects that need your time and talents.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="/projects">Find a project</a>
-          <a class="button button-secondary" href="/organizations">Explore organizations</a>
-        </div>
-      </div>
-      <div class="hero-card" aria-label="Community impact">
-        <p class="impact-number">12</p>
-        <p>ways to serve this month</p>
-      </div>
+        <h1>Neighbors helping neighbors, one project at a time</h1>
+        <p class="lead">Service Connect brings local volunteers together with organizations that need hands, time, and good ideas.</p>
+        <p>
+            <a class="button" href="/projects">Browse service projects</a>
+            <a class="button button-secondary" href="/organizations">Meet our partners</a>
+        </p>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Get involved</p>
-        <h2>How you can help</h2>
-      </div>
-      <div class="card-grid three">
-        <article class="info-card"><span class="card-icon">01</span><h3>Choose a cause</h3><p>Browse community needs by category or organization.</p></article>
-        <article class="info-card"><span class="card-icon">02</span><h3>Find your fit</h3><p>Explore projects based on your interests and availability.</p></article>
-        <article class="info-card"><span class="card-icon">03</span><h3>Serve together</h3><p>Connect with others and turn good intentions into action.</p></article>
-      </div>
+    <section class="panel">
+        <h2>How it works</h2>
+        <p>Find an organization you care about, pick a project that fits your schedule, and show up. Every project is grouped by category so you can focus on the kind of work that matters most to you.</p>
+        <p><a href="/categories">See all project categories</a></p>
     </section>
-  </main>
-<%- include("partials/footer") %>
+</main>
+
+<%- include('partials/footer') %>

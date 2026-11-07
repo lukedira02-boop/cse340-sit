@@ -1,61 +1,70 @@
-import "dotenv/config";
-import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
-import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllProjects } from "./src/models/projects.js";
-import { getAllCategories } from "./src/models/categories.js";
+import 'dotenv/config';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { getAllOrganizations } from './src/models/organizations.js';
+import { getAllProjects } from './src/models/projects.js';
+import { getAllCategories } from './src/models/categories.js';
 
-const app = express();
+// ESM does not provide __dirname, so build it from import.meta.url
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const port = process.env.PORT || 3000;
-const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const app = express();
 
-app.set("view engine", "ejs");
-app.set("views", path.join(currentDir, "src", "views"));
-app.use(express.static(path.join(currentDir, "public")));
+// Serve everything in /public (css, images) as static files
+app.use(express.static(path.join(__dirname, 'public')));
 
-const renderPage = (viewName, pageTitle) => async (request, response) => {
-  response.render(viewName, { title: pageTitle });
-};
+// Configure EJS as the template engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src', 'views'));
 
-app.get("/", renderPage("home", "Home"));
-app.get("/organizations", async (request, response, next) => {
-  try {
-    const organizations = await getAllOrganizations();
-    response.render("organizations", { title: "Organizations", organizations });
-  } catch (error) {
-    console.error("Unable to load organizations from the database:", error.message);
-    next(error);
-  }
-});
-app.get("/projects", async (request, response, next) => {
-  try {
-    const projects = await getAllProjects();
-    response.render("projects", { title: "Service Projects", projects });
-  } catch (error) {
-    console.error("Unable to load projects from the database:", error.message);
-    next(error);
-  }
-});
-app.get("/categories", async (request, response, next) => {
-  try {
-    const categories = await getAllCategories();
-    response.render("categories", { title: "Service Project Categories", categories });
-  } catch (error) {
-    console.error("Unable to load categories from the database:", error.message);
-    next(error);
-  }
+// Routes
+app.get('/', async (req, res) => {
+    const title = 'Home';
+    res.render('home', { title });
 });
 
-app.use((request, response) => {
-  response.status(404).render("404", { title: "Page Not Found" });
+app.get('/organizations', async (req, res, next) => {
+    const title = 'Partner Organizations';
+    try {
+        const organizations = await getAllOrganizations();
+        res.render('organizations', { title, organizations });
+    } catch (error) {
+        next(error);
+    }
 });
 
-app.use((error, request, response, next) => {
-  console.error("Unexpected server error:", error);
-  response.status(500).send("An unexpected server error occurred.");
+app.get('/projects', async (req, res, next) => {
+    const title = 'Service Projects';
+    try {
+        const projects = await getAllProjects();
+        res.render('projects', { title, projects });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.get('/categories', async (req, res, next) => {
+    const title = 'Service Project Categories';
+    try {
+        const categories = await getAllCategories();
+        res.render('categories', { title, categories });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.use((req, res) => {
+    res.status(404).render('404', { title: 'Page Not Found' });
+});
+
+app.use((error, req, res, next) => {
+    console.error('Database request failed:', error);
+    res.status(500).send('Database error: unable to load the requested data.');
 });
 
 app.listen(port, () => {
-  console.log(`Community Connections is running at http://localhost:${port}`);
+    console.log(`Server is running on http://127.0.0.1:${port}`);
 });
