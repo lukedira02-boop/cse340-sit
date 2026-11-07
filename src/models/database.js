@@ -3,13 +3,22 @@ import pg from 'pg';
 
 const { Pool } = pg;
 
-if (!process.env.DATABASE_URL) {
+const connectionString = process.env.DATABASE_URL?.trim();
+
+if (!connectionString) {
     throw new Error('DATABASE_URL is required');
 }
 
+if (
+    process.env.NODE_ENV === 'production' &&
+    /(localhost|127\.0\.0\.1|::1)/i.test(connectionString)
+) {
+    throw new Error('DATABASE_URL must point to the Render PostgreSQL database in production');
+}
+
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL?.includes('render.com') || process.env.NODE_ENV === 'production'
+    connectionString,
+    ssl: connectionString.includes('render.com') || process.env.NODE_ENV === 'production'
         ? { rejectUnauthorized: false }
         : false
 });
