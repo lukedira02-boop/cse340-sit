@@ -2,15 +2,17 @@ services:
   - type: web
     name: cse340-service-network
     runtime: node
-    buildCommand: npm install && npm run db:setup
+    buildCommand: npm install
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
-      - key: DATABASE_URL
+      - key: DB_URL
         fromDatabase:
           name: cse340-service-db
           property: connectionString
+      - key: ENABLE_SQL_LOGGING
+        value: 'true'
 
 databases:
   - name: cse340-service-db

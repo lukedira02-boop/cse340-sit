@@ -2,6 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import pool from './src/models/database.js';
+import { initializeDatabase } from './src/initialize-db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 import { getAllProjects } from './src/models/projects.js';
 import { getAllCategories } from './src/models/categories.js';
@@ -65,6 +67,17 @@ app.use((error, req, res, next) => {
     res.status(500).send('Database error: unable to load the requested data.');
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://127.0.0.1:${port}`);
-});
+try {
+    const initialized = await initializeDatabase();
+    if (initialized) {
+        console.log('Database schema and seed data created successfully.');
+    }
+
+    app.listen(port, () => {
+        console.log(`Server is running on http://127.0.0.1:${port}`);
+    });
+} catch (error) {
+    console.error('Unable to initialize the database:', error);
+    await pool.end();
+    process.exitCode = 1;
+}
